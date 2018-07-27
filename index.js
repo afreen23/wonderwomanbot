@@ -11,47 +11,56 @@ const prefix =config.prefix; // prefix: !
 client.on("message", (message) => {
  if(message.author.bot) return
  if (message.content.indexOf(prefix) !== 0) return;
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
+  const args = message.content.toLowerCase().slice(prefix.length).trim().split(/ +/g);
+  const command = args.shift();
  
  //!give arg1 arg2 arg3
  if(command === 'give') {
+	
 	let member = message.member;
 	args.map((role) => {
-		if(role === 'diy' || role === 'mentor'|| role === 'mentor-py'||role === 'mentor-js'||role === '@volunteer') {
+
+		if(role !== 'vip' && role !== 'gold') {
 			let roleid = message.guild.roles.find("name", `@${role}`);
-			member.addRole(roleid)
+			// role does not exist
+			if(!roleid) {
+				message.reply("No such role exists!")
+			}
+			// already having the role
+			else if(message.member.roles.find("name", `@${role}`)) {
+				message.reply(`You already have ${role} !`)
+			}
+			// add role
+			else {
+				member.addRole(roleid)
 				.then(message.reply("added "+role+" !!!"))
 				.catch(console.error)
+			}
 		}
-		else 
-		  message.reply("Wait for the confirmation from admins!")
-		  // dm to mods
-		  // await for reply y/n
-	});
-   }
+		else {
+			message.reply("Wait for the confirmation from admins!")
+			    // find mods
+			    var mods = message.guild.roles.find("name","new role").members;
+			    // rich embed:TODO
+			    let data = {
+			    	mes: "W"
+			    }
+			    let mod_message = new RichEmbed(data);
+			    // dm to mods
+			    mods.map((g)=> g.send(/*rich embed*/))
+			    // `${member} wants the role ${role}`					
+		}
+ 	});
+}
 
-//!help
+//!help :TODO
  if(command === 'help') {
  	// embed help for the channel
  }
 
+ 
+ 
+
 });
 
 client.login(config.token);
-
-
-// message.channel.send('What tag would you like to see? This will await will be cancelled in 30 seconds. It will finish when you provide a message that goes through the filter the first time.')
-// .then(() => {
-//   message.channel.awaitMessages(response => response.content === 'test', {
-//     max: 1,
-//     time: 30000,
-//     errors: ['time'],
-//   })
-//   .then((collected) => {
-//       message.channel.send(`The collected message was: ${collected.first().content}`);
-//     })
-//     .catch(() => {
-//       message.channel.send('There was no collected message that passed the filter within the time limit!');
-//     });
-// });
