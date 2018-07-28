@@ -9,7 +9,7 @@ client.on("ready",()=>{
 
 const prefix =config.prefix; // prefix: !
 client.on("message", (message) => {
- if(message.author.bot) return
+ if(message.author.bot) return;
  if (message.content.indexOf(prefix) !== 0) return;
   const args = message.content.toLowerCase().slice(prefix.length).trim().split(/ +/g);
   const command = args.shift();
@@ -55,7 +55,26 @@ client.on("message", (message) => {
 
 //!help :TODO
  if(command === 'help') {
- 	// embed help for the channel
+	 // embed help for the channel
+	const embed = {
+		"title": "HELP DESK",
+		"description": "Please peruse the links below.",
+		"url": "https://discordapp.com",
+		"color": 11270735,
+		"timestamp": "2018-07-28T01:22:50.281Z",
+		"fields": [
+		  {
+			"name": "Login to member portal for course videos and homework uploads:",
+			"value": "[Member Portal](https://1millionwomentotech.com/summerofcode1/)"
+		  },
+		  {
+			"name": "Find course syllabus, hackathon info, and coding exercises here:",
+			"value": "[Toolkitten Repo](https://github.com/1millionwomentotech/toolkitten/tree/master/summer-of-code)"
+		  }
+		]
+	};
+	channel.send("Someone called for help?", { embed }); 
+
  }
 
  
