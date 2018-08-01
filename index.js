@@ -64,20 +64,43 @@ client.on("message", (message) => {
 		"timestamp": "2018-07-28T01:22:50.281Z",
 		"fields": [
 		  {
-			"name": "Login to member portal for course videos and homework uploads:",
-			"value": "[Member Portal](https://1millionwomentotech.com/summerofcode1/)"
+			"name": "!links",
+			"value": "Shows relevent links to 1mwtt Summer of Code"
 		  },
 		  {
-			"name": "Find course syllabus, hackathon info, and coding exercises here:",
-			"value": "[Toolkitten Repo](https://github.com/1millionwomentotech/toolkitten/tree/master/summer-of-code)"
+			"name": "!give",
+			"value": "Requests admins to change member roles. Example: `!give vip`. NOTE: Role change will not be granted if you have not upgraded your account via the member portal."
 		  }
 		]
 	};
-	channel.send("Someone called for help?", { embed }); 
+	message.reply("You called for help?", { embed }); 
 
  }
 
  
+ //!links
+ if(command === 'links') {
+	// embed helpful links
+   const embed = {
+	   "title": "Link List",
+	   "description": "Please peruse the links below.",
+	   "url": "https://discordapp.com",
+	   "color": 11270735,
+	   "timestamp": "2018-07-28T01:22:50.281Z",
+	   "fields": [
+		 {
+		   "name": "Login to member portal for course videos and homework uploads:",
+		   "value": "[Member Portal](https://1millionwomentotech.com/summerofcode1/)"
+		 },
+		 {
+		   "name": "Find course syllabus, hackathon info, and coding exercises here:",
+		   "value": "[Toolkitten Repo](https://github.com/1millionwomentotech/toolkitten/tree/master/summer-of-code)"
+		 }
+	   ]
+   };
+   message.reply("Here are some handy links!", { embed }); 
+
+}
  
 
 });
